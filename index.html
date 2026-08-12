@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BotForge — Build Your First Discord Bot in Python (Zero to Running)</title>
+<meta name="description" content="A stunning, step-by-step interactive tutorial that teaches absolute beginners how to build and run a real Discord bot in Python — from installing Python to inviting the bot to your server.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%231e1f22'/%3E%3Cpath d='M14 16 L8 24 L14 32 M34 16 L40 24 L34 32' stroke='%235865F2' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='24' cy='24' r='3' fill='%23B5BAC1'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true">
+  <div class="ambient__grid"></div>
+  <div class="ambient__blob b1"></div>
+  <div class="ambient__blob b2"></div>
+  <div class="ambient__blob b3"></div>
+</div>
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="#top" class="brand" aria-label="BotForge home">
+      <svg class="brand__logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#5865F2"/><stop offset="1" stop-color="#4752C4"/>
+          </linearGradient>
+        </defs>
+        <rect x="1" y="1" width="46" height="46" rx="13" fill="#10141f" stroke="url(#logoGrad)" stroke-width="1.6"/>
+        <path d="M17 15 L9 24 L17 33" stroke="url(#logoGrad)" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M31 15 L39 24 L31 33" stroke="url(#logoGrad)" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="24" cy="24" r="3.4" fill="#B5BAC1"/>
+      </svg>
+      <span>
+        <span class="brand__name">BotForge</span>
+        <span class="brand__tag" data-i18n="brandTag">Learn to build Discord bots</span>
+      </span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      <a href="#step-1" data-i18n="navStep1">Install Python</a>
+      <a href="#step-2" data-i18n="navStep2">Install discord.py</a>
+      <a href="#step-3" data-i18n="navStep3">Bot &amp; Token</a>
+      <a href="#step-4" data-i18n="navStep4">Write the Code</a>
+      <a href="#step-5" data-i18n="navStep5">Run &amp; Invite</a>
+      <a href="#resources" data-i18n="navResources">Resources</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-switch__btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+          <span id="langCurrentFlag">🇬🇧</span>
+          <span id="langCurrentLabel">EN</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang-switch__menu" id="langMenu" role="menu">
+          <button class="lang-switch__item active" data-lang="en" role="menuitem"><span>🇬🇧 English</span><span class="code">EN</span></button>
+          <button class="lang-switch__item" data-lang="ar" role="menuitem"><span>🇩🇿 العربية</span><span class="code">AR</span></button>
+          <button class="lang-switch__item" data-lang="es" role="menuitem"><span>🇪🇸 Español</span><span class="code">ES</span></button>
+          <button class="lang-switch__item" data-lang="fr" role="menuitem"><span>🇫🇷 Français</span><span class="code">FR</span></button>
+        </div>
+      </div>
+      <a href="#step-1" class="cta-mini" data-i18n="navStart">Start Building</a>
+      <button class="btn-icon-toggle" id="mobileOpenBtn" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile sheet -->
+<div class="mobile-sheet" id="mobileSheet">
+  <div class="mobile-sheet__panel">
+    <button class="mobile-sheet__close" id="mobileCloseBtn" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <nav>
+      <a href="#step-1" data-i18n="navStep1">Install Python</a>
+      <a href="#step-2" data-i18n="navStep2">Install discord.py</a>
+      <a href="#step-3" data-i18n="navStep3">Bot &amp; Token</a>
+      <a href="#step-4" data-i18n="navStep4">Write the Code</a>
+      <a href="#step-5" data-i18n="navStep5">Run &amp; Invite</a>
+      <a href="#resources" data-i18n="navResources">Resources</a>
+    </nav>
+  </div>
+</div>
+
+<main id="top">
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero">
+  <div class="container hero__inner">
+    <div>
+      <span class="eyebrow"><span class="eyebrow__dot"></span> <span data-i18n="heroEyebrow">Zero to running · No experience needed</span></span>
+      <h1 data-i18n-html="heroTitle">Forge your first <span class="accent">Discord bot</span> from absolute zero.</h1>
+      <p class="lead" data-i18n="heroLead">A calm, line-by-line walkthrough for people who have never opened a terminal before. Install Python, write real code, and watch your bot come online — in one sitting.</p>
+      <div class="hero__ctas">
+        <a href="#step-1" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 3l14 9-14 9V3z"/></svg>
+          <span data-i18n="heroBtnStart">Start Building</span>
+        </a>
+        <a href="https://github.com/nyak97bat" target="_blank" rel="noopener" class="btn btn-ghost">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+          <span data-i18n="heroBtnGithub">View source on GitHub</span>
+        </a>
+      </div>
+      <div class="hero__meta">
+        <div class="hero__meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> <span data-i18n="heroMetaTime">~25–35 minutes</span></div>
+        <div class="hero__meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg> <span data-i18n="heroMetaWin">Windows, macOS &amp; Linux</span></div>
+        <div class="hero__meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.5 5.5 21l2-7.5L2 9h7z"/></svg> <span data-i18n="heroMetaFree">100% free tools</span></div>
+      </div>
+    </div>
+
+    <div style="position:relative;">
+      <div class="terminal" role="img" aria-label="Terminal showing Python Discord bot code">
+        <div class="terminal__bar">
+          <span class="terminal__dot r"></span><span class="terminal__dot y"></span><span class="terminal__dot g"></span>
+          <span class="terminal__title">bot.py — python3</span>
+        </div>
+        <div class="terminal__body" id="typewriter" aria-hidden="true"></div>
+      </div>
+      <div class="badge-float f1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+        <span data-i18n="heroBadgeOnline">Bot online ✓</span>
+      </div>
+      <div class="badge-float f2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        <span data-i18n="heroBadgeFast">Runs in seconds</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PREREQUISITES
+============================================================ -->
+<section class="prereq">
+  <div class="container">
+    <div class="prereq__grid">
+      <div class="prereq__card reveal">
+        <div class="prereq__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+        <h3 data-i18n="preq1Title">A Discord account</h3>
+        <p data-i18n="preq1Desc">Free, and takes 60 seconds if you don't have one yet.</p>
+      </div>
+      <div class="prereq__card reveal">
+        <div class="prereq__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+        <h3 data-i18n="preq2Title">A computer</h3>
+        <p data-i18n="preq2Desc">Windows, macOS or Linux — every step is covered for all three.</p>
+      </div>
+      <div class="prereq__card reveal">
+        <div class="prereq__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <h3 data-i18n="preq3Title">About 30 minutes</h3>
+        <p data-i18n="preq3Desc">No rushing. Follow along at your own pace, step by step.</p>
+      </div>
+      <div class="prereq__card reveal">
+        <div class="prereq__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.5 5.5 21l2-7.5L2 9h7z"/></svg></div>
+        <h3 data-i18n="preq4Title">Zero coding experience</h3>
+        <p data-i18n="preq4Desc">We explain every word, every symbol, every command.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TUTORIAL
+============================================================ -->
+<section class="tutorial">
+  <div class="container tutorial__grid">
+
+    <!-- sticky stepper -->
+    <nav class="stepper" id="stepper" aria-label="Tutorial steps">
+      <a href="#step-1" class="stepper__item active" data-step="step-1">
+        <span class="stepper__num">01</span><span class="stepper__label" data-i18n="navStep1">Install Python</span>
+      </a>
+      <a href="#step-2" class="stepper__item" data-step="step-2">
+        <span class="stepper__num">02</span><span class="stepper__label" data-i18n="navStep2">Install discord.py</span>
+      </a>
+      <a href="#step-3" class="stepper__item" data-step="step-3">
+        <span class="stepper__num">03</span><span class="stepper__label" data-i18n="navStep3">Bot &amp; Token</span>
+      </a>
+      <a href="#step-4" class="stepper__item" data-step="step-4">
+        <span class="stepper__num">04</span><span class="stepper__label" data-i18n="navStep4">Write the Code</span>
+      </a>
+      <a href="#step-5" class="stepper__item" data-step="step-5">
+        <span class="stepper__num">05</span><span class="stepper__label" data-i18n="navStep5">Run &amp; Invite</span>
+      </a>
+    </nav>
+
+    <div>
+      <!-- ================= STEP 1 ================= -->
+      <article class="step-section" id="step-1">
+        <div class="step-head">
+          <div class="step-head__num">01</div>
+          <div>
+            <h2 data-i18n="s1h">Install Python &amp; Pip</h2>
+            <p data-i18n="s1p">Python is the programming language we'll write the bot in. Pip is its built-in tool for installing extra code libraries. Let's get both set up correctly — this is the step most beginners get stuck on, so we'll go slowly.</p>
+          </div>
+        </div>
+        <div class="step-card">
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> <span data-i18n="s1sub1">What are Python and Pip, really?</span></h3>
+          <p data-i18n="s1sub1p">Think of <strong>Python</strong> as the language your computer needs to understand to run the instructions we're about to write. <strong>Pip</strong> is a helper tool that ships with Python — its only job is to download and install extra pieces of code (called "libraries" or "packages") that other people have already written, so you don't have to build everything from scratch.</p>
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M6 11l6 6 6-6"/><path d="M5 21h14"/></svg> <span data-i18n="s1sub2">Download the installer</span></h3>
+          <ol class="num-list">
+            <li data-i18n="s1step1">Go to <strong>python.org/downloads</strong> in your browser.</li>
+            <li data-i18n="s1step2">Click the big yellow "Download Python 3.x" button — it automatically detects your operating system.</li>
+            <li data-i18n="s1step3">Open the downloaded file once it finishes downloading.</li>
+          </ol>
+
+          <div class="callout danger">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+            <div>
+              <span class="callout__title" data-i18n="s1warnTitle">The most important checkbox in this whole tutorial</span>
+              <p data-i18n="s1warnBody">On the very first installer screen (Windows), tick <strong>"Add python.exe to PATH"</strong> before clicking Install. This tells your computer where to find Python when you type commands. Skip this, and nothing in Step 2 onward will work.</p>
+            </div>
+          </div>
+
+          <div class="mock-shot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12l3 3 5-6"/></svg>
+            <span data-i18n="s1mock">Installer screen: a checkbox labelled "Add python.exe to PATH" sits at the bottom — check it, then click "Install Now".</span>
+          </div>
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6-6-6M12 19h8"/></svg> <span data-i18n="s1sub3">Open a terminal to verify it worked</span></h3>
+          <p data-i18n="s1sub3p">A "terminal" (or "command line") is a text-only window where you type instructions directly to your computer instead of clicking icons. Choose the path that matches your setup:</p>
+
+          <div class="tabs" data-tabs="step1">
+            <div class="tabs__nav">
+              <button class="tabs__btn active" data-tab="vscode">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg> VS Code
+              </button>
+              <button class="tabs__btn" data-tab="cmd">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l4 3-4 3M13 15h4"/></svg> <span data-i18n="tabCmd">CMD + Notepad</span>
+              </button>
+            </div>
+            <div class="tabs__panel active" data-panel="vscode">
+              <p data-i18n="s1vscode">Open <strong>VS Code</strong>, then go to the top menu <strong>Terminal → New Terminal</strong>. A panel opens at the bottom of the window — that's your terminal, built right into the editor.</p>
+            </div>
+            <div class="tabs__panel" data-panel="cmd">
+              <p data-i18n="s1cmd">On Windows, press the <strong>Start</strong> key, type <strong>cmd</strong>, and press Enter. On macOS, open <strong>Spotlight</strong> (Cmd + Space), type <strong>Terminal</strong>, and press Enter. We'll use Notepad (or TextEdit) later to write the actual code.</p>
+            </div>
+          </div>
+
+          <p data-i18n="s1verifyP">Now type this into the terminal and press Enter:</p>
+          <div class="code-block">
+            <div class="code-block__head">
+              <span class="code-block__filename"><span class="dot"></span> terminal</span>
+              <button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span data-i18n="copyLabel">Copy</span></button>
+            </div>
+            <pre><code><span class="tok-cmd">python</span> <span class="tok-flag">--version</span>
+<span class="tok-cmd">pip</span> <span class="tok-flag">--version</span></code></pre>
+          </div>
+          <p data-i18n="s1verifyOut">If both commands print a version number (e.g. <code class="inline">Python 3.12.4</code>), you're done — Python is installed correctly. If you see "not recognized as an internal or external command," open the accordion below.</p>
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg> <span data-i18n="s1troubleTitle">Troubleshooting</span></h3>
+          <div class="accordion">
+            <div class="accordion__item">
+              <button class="accordion__btn"><span data-i18n="s1acc1t">"'python' is not recognized as an internal or external command"</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="accordion__panel"><div class="accordion__panel-inner" data-i18n="s1acc1b">Python wasn't added to PATH during install. Uninstall Python from "Add or remove programs," reinstall it, and make sure to tick "Add python.exe to PATH" on the first screen before clicking Install.</div></div>
+            </div>
+            <div class="accordion__item">
+              <button class="accordion__btn"><span data-i18n="s1acc2t">On macOS, should I type "python" or "python3"?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="accordion__panel"><div class="accordion__panel-inner" data-i18n="s1acc2b">macOS ships an old system Python. After installing from python.org, use <code class="inline">python3</code> and <code class="inline">pip3</code> instead of <code class="inline">python</code> and <code class="inline">pip</code> throughout this guide.</div></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= STEP 2 ================= -->
+      <article class="step-section" id="step-2">
+        <div class="step-head">
+          <div class="step-head__num">02</div>
+          <div>
+            <h2 data-i18n="s2h">Install the discord.py library</h2>
+            <p data-i18n="s2p">Python itself doesn't know anything about Discord. We need a "library" — pre-written code that handles all the complicated communication with Discord's servers for us. That library is called <strong>discord.py</strong>.</p>
+          </div>
+        </div>
+        <div class="step-card">
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> <span data-i18n="s2sub1">Create a project folder first</span></h3>
+          <p data-i18n="s2sub1p">Make a new folder anywhere you'll remember — for example <code class="inline">Desktop/my-discord-bot</code>. Everything we create in this tutorial (the code file, the token file) will live inside it.</p>
+
+          <div class="tabs" data-tabs="step2">
+            <div class="tabs__nav">
+              <button class="tabs__btn active" data-tab="vscode">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg> VS Code
+              </button>
+              <button class="tabs__btn" data-tab="cmd">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l4 3-4 3M13 15h4"/></svg> <span data-i18n="tabCmd">CMD + Notepad</span>
+              </button>
+            </div>
+            <div class="tabs__panel active" data-panel="vscode">
+              <p data-i18n="s2vscode">In VS Code, go to <strong>File → Open Folder</strong> and select (or create) your <code class="inline">my-discord-bot</code> folder. Then open the built-in terminal with <strong>Terminal → New Terminal</strong> — it automatically opens inside that folder.</p>
+            </div>
+            <div class="tabs__panel" data-panel="cmd">
+              <p data-i18n="s2cmd">In your terminal, "move into" the folder using the <code class="inline">cd</code> (change directory) command, for example:</p>
+              <div class="code-block">
+                <div class="code-block__head"><span class="code-block__filename"><span class="dot"></span> terminal</span><button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span data-i18n="copyLabel">Copy</span></button></div>
+                <pre><code><span class="tok-cmd">cd</span> Desktop/my-discord-bot</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> <span data-i18n="s2sub2">Install discord.py with pip</span></h3>
+          <p data-i18n="s2sub2p">With your terminal open inside the project folder, run:</p>
+          <div class="code-block">
+            <div class="code-block__head"><span class="code-block__filename"><span class="dot"></span> terminal</span><button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span data-i18n="copyLabel">Copy</span></button></div>
+            <pre><code><span class="tok-cmd">pip</span> install discord.py</code></pre>
+          </div>
+          <p data-i18n="s2sub2p2">We'll also need one more tiny library later for keeping our bot's secret token safe — install it now while we're here:</p>
+          <div class="code-block">
+            <div class="code-block__head"><span class="code-block__filename"><span class="dot"></span> terminal</span><button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span data-i18n="copyLabel">Copy</span></button></div>
+            <pre><code><span class="tok-cmd">pip</span> install python-dotenv</code></pre>
+          </div>
+
+          <div class="callout info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <div>
+              <span class="callout__title" data-i18n="s2infoTitle">What just happened?</span>
+              <p data-i18n="s2infoBody">Pip reached out to the Python Package Index (a public library of free code), downloaded <code class="inline">discord.py</code> and <code class="inline">python-dotenv</code>, and installed them so any Python file in this folder can now use them with a simple <code class="inline">import</code> line.</p>
+            </div>
+          </div>
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="s2sub3">Double-check the install</span></h3>
+          <div class="code-block">
+            <div class="code-block__head"><span class="code-block__filename"><span class="dot"></span> terminal</span><button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span data-i18n="copyLabel">Copy</span></button></div>
+            <pre><code><span class="tok-cmd">pip</span> show discord.py</code></pre>
+          </div>
+          <p data-i18n="s2verify">You should see a block of text with a <strong>Name</strong>, <strong>Version</strong>, and <strong>Location</strong>. That confirms the library is installed and ready to use.</p>
+
+          <div class="accordion">
+            <div class="accordion__item">
+              <button class="accordion__btn"><span data-i18n="s2acc1t">Do I need a "virtual environment"?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="accordion__panel"><div class="accordion__panel-inner" data-i18n="s2acc1b">Not for this tutorial. A virtual environment keeps each project's libraries separate, which is great practice later on, but it adds an extra concept while you're still learning the basics. Feel free to skip it for now.</div></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= STEP 3 ================= -->
+      <article class="step-section" id="step-3">
+        <div class="step-head">
+          <div class="step-head__num">03</div>
+          <div>
+            <h2 data-i18n="s3h">Create the bot &amp; get your token</h2>
+            <p data-i18n="s3p">Before your code can control a bot, Discord needs to know that bot exists. We'll create it on the Discord Developer Portal and collect a secret "token" — think of it as the bot's password.</p>
+          </div>
+        </div>
+        <div class="step-card">
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.5 5.5 21l2-7.5L2 9h7z"/></svg> <span data-i18n="s3sub1">Create the application</span></h3>
+          <ol class="num-list">
+            <li data-i18n="s3step1">Go to <strong>discord.com/developers/applications</strong> and log in with your Discord account.</li>
+            <li data-i18n="s3step2">Click <strong>"New Application"</strong> in the top-right corner.</li>
+            <li data-i18n="s3step3">Give it a name (this becomes your bot's display name) and accept the terms, then click <strong>Create</strong>.</li>
+          </ol>
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span data-i18n="s3sub2">Turn it into a bot &amp; grab the token</span></h3>
+          <ol class="num-list">
+            <li data-i18n="s3step4">In the left sidebar, click <strong>"Bot."</strong></li>
+            <li data-i18n="s3step5">Click <strong>"Reset Token"</strong> (or "Copy," if you're seeing it for the first time) and confirm.</li>
+            <li data-i18n="s3step6">Click <strong>"Copy"</strong> to copy your token to the clipboard. This is shown to you only once — save it somewhere safe immediately.</li>
+          </ol>
+
+          <div class="callout danger">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+            <div>
+              <span class="callout__title" data-i18n="s3dangerTitle">Your token is a password — treat it like one</span>
+              <p data-i18n="s3dangerBody">Anyone with your token can fully control your bot. Never paste it into chat, a screenshot, or a public GitHub repository. If you ever expose it by accident, come back to this page and click "Reset Token" immediately to invalidate the old one.</p>
+            </div>
+          </div>
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> <span data-i18n="s3sub3">Turn on Message Content Intent</span></h3>
+          <p data-i18n="s3sub3p">Still on the "Bot" page, scroll down to <strong>"Privileged Gateway Intents"</strong> and switch on <strong>"Message Content Intent."</strong> This gives your bot permission to actually read the text inside messages — without it, commands like the ones we'll write in Step 4 won't work.</p>
+
+          <div class="mock-shot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12l3 3 5-6"/></svg>
+            <span data-i18n="s3mock">Bot page: a toggle switch labelled "Message Content Intent" under Privileged Gateway Intents — flip it on and click "Save Changes."</span>
+          </div>
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M9 15h2"/></svg> <span data-i18n="s3sub4">Store the token safely in a .env file</span></h3>
+          <p data-i18n="s3sub4p">Instead of typing your token directly into your code (where it could accidentally get shared), we'll keep it in a separate file named exactly <code class="inline">.env</code>, inside your project folder.</p>
+
+          <div class="tabs" data-tabs="step3">
+            <div class="tabs__nav">
+              <button class="tabs__btn active" data-tab="vscode">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg> VS Code
+              </button>
+              <button class="tabs__btn" data-tab="cmd">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l4 3-4 3M13 15h4"/></svg> <span data-i18n="tabCmd">CMD + Notepad</span>
+              </button>
+            </div>
+            <div class="tabs__panel active" data-panel="vscode">
+              <p data-i18n="s3vscodeEnv">In the Explorer panel on the left, click the "New File" icon and name it exactly <code class="inline">.env</code> (yes, starting with a dot, no other extension). Open it and add the line below.</p>
+            </div>
+            <div class="tabs__panel" data-panel="cmd">
+              <p data-i18n="s3cmdEnv">Open <strong>Notepad</strong>, add the line below, then choose <strong>File → Save As</strong>. Navigate to your project folder, change "Save as type" to <strong>All Files</strong>, and set the filename to exactly <code class="inline">.env</code> — otherwise Notepad will secretly save it as <code class="inline">.env.txt</code>, which won't work.</p>
+            </div>
+          </div>
+
+          <div class="code-block">
+            <div class="code-block__head"><span class="code-block__filename"><span class="dot"></span> .env</span><button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span data-i18n="copyLabel">Copy</span></button></div>
+            <pre><code>DISCORD_TOKEN=paste-your-token-here</code></pre>
+          </div>
+          <p data-i18n="s3envNote">Replace <code class="inline">paste-your-token-here</code> with the real token you copied — no quotes, no spaces around the <code class="inline">=</code> sign.</p>
+
+          <div class="callout warn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+            <div>
+              <span class="callout__title" data-i18n="s3warnTitle">If you ever upload this project to GitHub</span>
+              <p data-i18n="s3warnBody">Create a file named <code class="inline">.gitignore</code> in the same folder and add a single line: <code class="inline">.env</code>. That tells GitHub to never upload your secret file publicly.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= STEP 4 ================= -->
+      <article class="step-section" id="step-4">
+        <div class="step-head">
+          <div class="step-head__num">04</div>
+          <div>
+            <h2 data-i18n="s4h">Write the code, line by line</h2>
+            <p data-i18n="s4p">Now for the fun part. We'll create one file, <code class="inline">bot.py</code>, and build it up piece by piece — explaining exactly what every line does before you ever have to run it.</p>
+          </div>
+        </div>
+        <div class="step-card">
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> <span data-i18n="s4sub1">Create bot.py</span></h3>
+          <div class="tabs" data-tabs="step4">
+            <div class="tabs__nav">
+              <button class="tabs__btn active" data-tab="vscode">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg> VS Code
+              </button>
+              <button class="tabs__btn" data-tab="cmd">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l4 3-4 3M13 15h4"/></svg> <span data-i18n="tabCmd">CMD + Notepad</span>
+              </button>
+            </div>
+            <div class="tabs__panel active" data-panel="vscode">
+              <p data-i18n="s4vscode">Click the "New File" icon in the Explorer panel, name it <code class="inline">bot.py</code>, and it opens ready to edit — with color-coded syntax highlighting built in.</p>
+            </div>
+            <div class="tabs__panel" data-panel="cmd">
+              <p data-i18n="s4cmd">Open Notepad, and when you save, use <strong>File → Save As</strong>, set "Save as type" to <strong>All Files</strong>, and name it exactly <code class="inline">bot.py</code> in your project folder.</p>
+            </div>
+          </div>
+
+          <p data-i18n="s4introP">Type (or copy) this complete code into <code class="inline">bot.py</code>:</p>
+
+          <div class="code-block">
+            <div class="code-block__head">
+              <span class="code-block__filename"><span class="dot"></span> bot.py</span>
+              <button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span data-i18n="copyLabel">Copy</span></button>
+            </div>
+            <pre><code><span class="tok-com"># bot.py</span>
+
+<span class="tok-kw">import</span> os
+<span class="tok-kw">import</span> discord
+<span class="tok-kw">from</span> discord.ext <span class="tok-kw">import</span> commands
+<span class="tok-kw">from</span> dotenv <span class="tok-kw">import</span> load_dotenv
+
+<span class="tok-com"># Load the variables from our .env file into this program</span>
+load_dotenv()
+TOKEN = os.getenv(<span class="tok-str">"DISCORD_TOKEN"</span>)
+
+<span class="tok-com"># Tell Discord which events our bot is allowed to see</span>
+intents = discord.Intents.default()
+intents.message_content = <span class="tok-kw">True</span>
+
+<span class="tok-com"># Create the bot itself, with "!" as its command prefix</span>
+bot = commands.Bot(command_prefix=<span class="tok-str">"!"</span>, intents=intents)
+
+<span class="tok-deco">@bot.event</span>
+<span class="tok-kw">async</span> <span class="tok-kw">def</span> <span class="tok-fn">on_ready</span>():
+    <span class="tok-fn">print</span>(<span class="tok-str">f"✅ Logged in as {bot.user} (ID: {bot.user.id})"</span>)
+    <span class="tok-fn">print</span>(<span class="tok-str">"------"</span>)
+
+<span class="tok-deco">@bot.command()</span>
+<span class="tok-kw">async</span> <span class="tok-kw">def</span> <span class="tok-fn">hello</span>(ctx):
+    <span class="tok-str">"""Replies with a friendly greeting."""</span>
+    <span class="tok-kw">await</span> ctx.send(<span class="tok-str">f"Hey {ctx.author.mention}! 👋 I'm alive and ready to go."</span>)
+
+<span class="tok-deco">@bot.command()</span>
+<span class="tok-kw">async</span> <span class="tok-kw">def</span> <span class="tok-fn">ping</span>(ctx):
+    <span class="tok-str">"""Shows the bot's latency in milliseconds."""</span>
+    latency = <span class="tok-fn">round</span>(bot.latency * <span class="tok-num">1000</span>)
+    <span class="tok-kw">await</span> ctx.send(<span class="tok-str">f"🏓 Pong! Latency: {latency}ms"</span>)
+
+bot.run(TOKEN)</code></pre>
+          </div>
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/></svg> <span data-i18n="s4breakTitle">What every part of this actually does</span></h3>
+
+          <ul class="check-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="s4b1"><code class="inline">import os / discord / commands / dotenv</code> — these lines pull in the libraries we installed in Step 2, plus Python's built-in <code class="inline">os</code> module for reading environment variables.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="s4b2"><code class="inline">load_dotenv()</code> and <code class="inline">os.getenv(...)</code> — these open your <code class="inline">.env</code> file and read the <code class="inline">DISCORD_TOKEN</code> value into the variable <code class="inline">TOKEN</code>, so your real token never appears in the code itself.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="s4b3"><code class="inline">intents</code> — "intents" are permissions that tell Discord which categories of events your bot is allowed to receive. <code class="inline">message_content = True</code> matches the toggle you switched on in Step 3.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="s4b4"><code class="inline">commands.Bot(command_prefix="!", ...)</code> — this creates the bot object and decides that every command must start with <code class="inline">!</code> in chat, e.g. <code class="inline">!hello</code>.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="s4b5"><code class="inline">async def</code> and <code class="inline">await</code> — Discord bots constantly wait on network activity (messages arriving, replies sending). <code class="inline">async</code>/<code class="inline">await</code> lets Python handle many of these waiting tasks at once instead of freezing up.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="s4b6"><code class="inline">@bot.event</code> above <code class="inline">on_ready()</code> — this decorator tells discord.py "run this function automatically the moment the bot successfully connects." It's perfect for a startup confirmation message.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="s4b7"><code class="inline">@bot.command()</code> — this decorator turns any function directly below it into a chat command. The function name becomes the command name, so <code class="inline">def hello(ctx):</code> becomes <code class="inline">!hello</code>.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="s4b8"><code class="inline">ctx</code> ("context") — automatically holds information about where the command was used: which channel, which user, which server — so <code class="inline">ctx.send(...)</code> knows exactly where to reply.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="s4b9"><code class="inline">bot.run(TOKEN)</code> — the final line, always last in the file. It logs the bot into Discord using your token and keeps the program running, listening for events, until you stop it.</span></li>
+          </ul>
+
+          <div class="callout info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <div>
+              <span class="callout__title" data-i18n="s4infoTitle">Indentation matters in Python</span>
+              <p data-i18n="s4infoBody">Notice how the lines inside each function are indented with 4 spaces. Python uses that indentation (not curly braces) to know which lines belong "inside" a function. Keep it consistent, or you'll get an <code class="inline">IndentationError</code>.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= STEP 5 ================= -->
+      <article class="step-section" id="step-5">
+        <div class="step-head">
+          <div class="step-head__num">05</div>
+          <div>
+            <h2 data-i18n="s5h">Run the bot &amp; invite it to your server</h2>
+            <p data-i18n="s5p">This is the moment it all comes together — start the script, watch it come online, and bring it into a real Discord server to try your commands.</p>
+          </div>
+        </div>
+        <div class="step-card">
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> <span data-i18n="s5sub1">Run bot.py</span></h3>
+
+          <div class="tabs" data-tabs="step5">
+            <div class="tabs__nav">
+              <button class="tabs__btn active" data-tab="vscode">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg> VS Code
+              </button>
+              <button class="tabs__btn" data-tab="cmd">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l4 3-4 3M13 15h4"/></svg> <span data-i18n="tabCmd">CMD + Notepad</span>
+              </button>
+            </div>
+            <div class="tabs__panel active" data-panel="vscode">
+              <p data-i18n="s5vscode">With <code class="inline">bot.py</code> open, click the ▶ "Run" button in the top-right corner, or open the integrated terminal and type the command below.</p>
+            </div>
+            <div class="tabs__panel" data-panel="cmd">
+              <p data-i18n="s5cmd">In your terminal, make sure you're still inside the project folder (use <code class="inline">cd</code> if needed), then run the command below.</p>
+            </div>
+          </div>
+
+          <div class="code-block">
+            <div class="code-block__head"><span class="code-block__filename"><span class="dot"></span> terminal</span><button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span data-i18n="copyLabel">Copy</span></button></div>
+            <pre><code><span class="tok-cmd">python</span> bot.py</code></pre>
+          </div>
+          <p data-i18n="s5runOut">Success looks like a line printed in your terminal: <code class="inline">✅ Logged in as YourBotName (ID: ...)</code>. Leave this window open — closing it stops the bot.</p>
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"/></svg> <span data-i18n="s5sub2">Generate an invite link</span></h3>
+          <ol class="num-list">
+            <li data-i18n="s5step1">Back on the Developer Portal, open your application and click <strong>"OAuth2"</strong> in the sidebar, then <strong>"URL Generator."</strong></li>
+            <li data-i18n="s5step2">Under <strong>Scopes</strong>, check <strong>"bot."</strong></li>
+            <li data-i18n="s5step3">Under <strong>Bot Permissions</strong>, check at least <strong>"Send Messages"</strong> and <strong>"Read Message History."</strong></li>
+            <li data-i18n="s5step4">Scroll down, copy the generated URL at the bottom, and open it in a new browser tab.</li>
+            <li data-i18n="s5step5">Choose a server you manage from the dropdown and click <strong>"Authorize."</strong></li>
+          </ol>
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01"/><rect x="3" y="4" width="18" height="16" rx="3"/></svg> <span data-i18n="s5sub3">Test your commands</span></h3>
+          <p data-i18n="s5sub3p">In any text channel your bot can see, type <code class="inline">!hello</code> and press Enter — your bot should reply within a second. Try <code class="inline">!ping</code> too. That's it: you just wrote and ran a real Discord bot.</p>
+
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg> <span data-i18n="s5troubleTitle">Troubleshooting</span></h3>
+          <div class="accordion">
+            <div class="accordion__item">
+              <button class="accordion__btn"><span data-i18n="s5acc1t">ModuleNotFoundError: No module named 'discord'</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="accordion__panel"><div class="accordion__panel-inner" data-i18n="s5acc1b">Pip installed the library into a different Python than the one running your script. Try <code class="inline">python -m pip install discord.py</code> instead, which forces the install into the exact Python you're using.</div></div>
+            </div>
+            <div class="accordion__item">
+              <button class="accordion__btn"><span data-i18n="s5acc2t">discord.errors.LoginFailure: Improper token has been passed</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="accordion__panel"><div class="accordion__panel-inner" data-i18n="s5acc2b">Your <code class="inline">.env</code> file's token is missing, mistyped, or was reset on the portal. Go back to the "Bot" page, click "Reset Token," copy the new one, and paste it into your <code class="inline">.env</code> file again.</div></div>
+            </div>
+            <div class="accordion__item">
+              <button class="accordion__btn"><span data-i18n="s5acc3t">PrivilegedIntentsRequired error on startup</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="accordion__panel"><div class="accordion__panel-inner" data-i18n="s5acc3b">You enabled <code class="inline">intents.message_content</code> in code but forgot to flip on "Message Content Intent" in the Developer Portal. Go back to Step 3 and turn it on.</div></div>
+            </div>
+            <div class="accordion__item">
+              <button class="accordion__btn"><span data-i18n="s5acc4t">The bot shows up offline in my server</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="accordion__panel"><div class="accordion__panel-inner" data-i18n="s5acc4b">Your script isn't currently running. Check the terminal window for an error message that stopped it, fix the issue, and run <code class="inline">python bot.py</code> again. The bot stays online only while the script is running.</div></div>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <div>
+              <span class="callout__title" data-i18n="s5nextTitle">Nice work — what's next?</span>
+              <p data-i18n="s5nextBody">Right now your bot only runs while your computer is on and the script is open. To keep it online 24/7, you'll eventually want to host it somewhere like a small VPS or a service such as Railway — check the Resources section below for where to learn more.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     RESOURCES
+============================================================ -->
+<section class="resources" id="resources">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="eyebrow__dot"></span> <span data-i18n="resEyebrow">Keep going</span></span>
+      <h2 data-i18n="resTitle">Where to go from here</h2>
+      <p data-i18n="resSubtitle">You've got a running bot — these are the next places worth exploring as you grow it.</p>
+    </div>
+    <div class="res-grid">
+      <a href="https://discordpy.readthedocs.io/" target="_blank" rel="noopener" class="res-card reveal">
+        <div class="res-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <h3 data-i18n="res1Title">discord.py documentation</h3>
+        <p data-i18n="res1Desc">The complete, official reference for every event, command, and permission the library offers.</p>
+        <span class="res-card__link" data-i18n="res1Link">Read the docs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="https://discord.com/developers/docs/intro" target="_blank" rel="noopener" class="res-card reveal">
+        <div class="res-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3 data-i18n="res2Title">Discord Developer Docs</h3>
+        <p data-i18n="res2Desc">Learn about slash commands, embeds, buttons, and the wider Discord API beyond this tutorial.</p>
+        <span class="res-card__link" data-i18n="res2Link">Explore the API <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="#top" class="brand">
+          <svg class="brand__logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="1" y="1" width="46" height="46" rx="13" fill="#10141f" stroke="url(#logoGrad)" stroke-width="1.6"/>
+            <path d="M17 15 L9 24 L17 33" stroke="url(#logoGrad)" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M31 15 L39 24 L31 33" stroke="url(#logoGrad)" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="24" cy="24" r="3.4" fill="#B5BAC1"/>
+          </svg>
+          <span>
+            <span class="brand__name">BotForge</span>
+            <span class="brand__tag" data-i18n="brandTag">Learn to build Discord bots</span>
+          </span>
+        </a>
+        <p data-i18n="footerBrandDesc">A free, beginner-first tutorial for building your very first Discord bot in Python — from an empty folder to a running bot.</p>
+      </div>
+      <div class="footer__social">
+        <a class="social-btn gh" href="https://github.com/nyak97bat" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+        </a>
+        <a class="social-btn ig" href="https://www.instagram.com/zaki9exb/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a class="social-btn dc" href="https://discord.gg/alger" target="_blank" rel="noopener" aria-label="Discord Server">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 5.4A17.7 17.7 0 0 0 15.9 4a12.9 12.9 0 0 0-.6 1.3 16.4 16.4 0 0 0-4.9 0A12.9 12.9 0 0 0 9.8 4a17.7 17.7 0 0 0-4.4 1.4C2.6 9.1 1.9 12.7 2.2 16.2a17.8 17.8 0 0 0 5.4 2.7c.4-.6.8-1.2 1.1-1.9-.6-.2-1.2-.5-1.8-.9l.4-.3a12.7 12.7 0 0 0 10.4 0l.4.3c-.6.4-1.2.7-1.8.9.3.7.7 1.3 1.1 1.9a17.7 17.7 0 0 0 5.4-2.7c.4-4-.6-7.6-2.5-10.8zM9.7 14c-.8 0-1.5-.8-1.5-1.7s.7-1.7 1.5-1.7 1.5.8 1.5 1.7-.7 1.7-1.5 1.7zm4.6 0c-.8 0-1.5-.8-1.5-1.7s.7-1.7 1.5-1.7 1.5.8 1.5 1.7-.7 1.7-1.5 1.7z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer__cols">
+      <div class="footer__col">
+        <h4 data-i18n="footerColTutorial">Tutorial</h4>
+        <ul>
+          <li><a href="#step-1" data-i18n="navStep1">Install Python</a></li>
+          <li><a href="#step-2" data-i18n="navStep2">Install discord.py</a></li>
+          <li><a href="#step-3" data-i18n="navStep3">Bot &amp; Token</a></li>
+          <li><a href="#step-4" data-i18n="navStep4">Write the Code</a></li>
+          <li><a href="#step-5" data-i18n="navStep5">Run &amp; Invite</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4 data-i18n="footerColResources">Resources</h4>
+        <ul>
+          <li><a href="https://discordpy.readthedocs.io/" target="_blank" rel="noopener" data-i18n="res1Title">discord.py documentation</a></li>
+          <li><a href="https://discord.com/developers/docs/intro" target="_blank" rel="noopener" data-i18n="res2Title">Discord Developer Docs</a></li>
+          <li><a href="https://python.org" target="_blank" rel="noopener">python.org</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4 data-i18n="footerColConnect">Connect</h4>
+        <ul>
+          <li><a href="https://github.com/nyak97bat" target="_blank" rel="noopener">GitHub — nyak97bat</a></li>
+          <li><a href="https://www.instagram.com/zaki9exb/" target="_blank" rel="noopener">Instagram — @zaki9exb</a></li>
+          <li><a href="https://discord.gg/alger" target="_blank" rel="noopener" data-i18n="footerDiscordServer">Discord — join the server</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; <span id="year"></span> BotForge. <span data-i18n="footerRights">All rights reserved.</span></p>
+      <p class="made"><span data-i18n="footerMade">Built with</span> <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-6.7-4.3-9.3-8.1C.9 10 1.7 6.4 4.9 5.1c2-.8 4.1 0 5.4 1.6.2.3.6.3.8 0C12.4 5.1 14.5 4.3 16.5 5.1c3.2 1.3 4 4.9 2.2 7.8C18.7 16.7 12 21 12 21z"/></svg> <span data-i18n="footerFor">for the community</span></p>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTopBtn" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script src="script.js"></script>
+</body>
+</html>
